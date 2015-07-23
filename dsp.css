@@ -1,0 +1,125 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+
+body {
+    font-family: Roboto, sans-serif;
+    font-size:48px;
+    font-weight: normal;
+    background-image: url('img/white_wall_hash.png');
+}
+
+
+.reveal code {
+	text-align: left;
+	font-size: 50%;
+	padding: 0;
+	margin:0;
+}
+
+.reveal h2 {
+    font-size:120%;
+	padding-bottom: 1em;
+}
+
+.reveal p {
+}
+
+.reveal ul, .reveal ol {
+    margin-top: 1em;
+    text-align: left;
+    padding-left: 2em;
+}
+
+.reveal li {
+    padding: 0.2 5em;
+}
+
+#impulse-response {
+    position: absolute;
+    top:300;
+    left:20%;
+}
+
+#delta-txt {
+    position: absolute;
+    top: 410%;
+    left:45%;
+}
+
+#sincomp, #sawtooth {
+	width: 48%;
+	vertical-align: middle;
+}
+
+#player {
+	width: 50%;
+	padding-left: 20%;
+}
+
+#sawtooth-code {
+	margin-left:30%;
+	width: 40%
+}
+
+#fft-code {
+    float:left;
+	width: 40%;
+}
+
+#fft-zoom {
+    float:left;
+	left: 5%;
+	top: 20%;
+}
+
+#filter-code {
+    font-size: 145%;
+}
+
+#aliasing-code {
+    float:left;
+    margin-top:50px;
+    width: 45%;
+}
+
+#alias-image {
+    margin-top:50px;
+    float:left;
+    width: 45%
+}
+
+#equalization-code {
+    float:left;
+    width: 65%;
+    margin-top: 5%;
+    font-size: 115%
+}
+
+#equalized-image {
+    float:left;
+    width: 35%
+}
+
+#ycbcr-code {
+    width: 40%;
+    margin-left: 20%
+}
+
+#grid-code {
+    width: 50%;
+    margin-left: 20%
+}
+#img-bw {
+    float: left;
+    padding-left: 20%;    
+}
+
+#img-table {
+	float: left;
+	padding-left: 10%;
+	font-size: 32px;
+}
+
+#img-table table {
+	width: 400px;
+	height: 400px;
+}

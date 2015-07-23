@@ -84,22 +84,36 @@
 						<img src='img/sound.png'>
 					</section>
 					<section>
-						Light
+						<h2>Light</h2>
+						<img src="img/puppy.jpg">
+
+                        <aside class="notes">
+                            http://images6.fanpop.com/image/photos/36300000/German-Shepherds-image-german-shepherds-36311386-1997-1636.jpg
+                        </aside>
 					</section>
 					<section>
-						Temperature
+						<h2>Temperature</h2>
+						<img src="img/temperature.png">
 					</section>
 					<section>
-						heart beats
+						<h2>heart beats</h2>
+						<img src="img/heart_rate.jpg">
+						<aside class="notes>
+						http://www.sac.edu/AcademicProgs/ScienceMathHealth/Nursing/emergencymedicaltechnician/Documents/Heart%20Rate.jpg
+						"</aside>
 					</section>
 					<section>
-						hiking trail elevation
+						<h2>hiking trail elevation</h2>
+						<img src="img/elevation.jpg">
+						<aside class="notes">
+							http://www.shyamal.com/Hikes/ElCajonMt/ElCajonMt_elev.jpg
+						</aside>
 					</section>
 				</section>
 
 				<section>
 					<section>
-						<h2>A digital signal is a signal turned into discrete values at discrete points in time or space</h2>
+						<h2>A digital signal is a signal turned into values at points in time or space</h2>
 						<img src="img/discretize.png">
 						<aside class="notes">
 							In order to be able to hold the signal in computer memory we need to be able to discretize the signal.
@@ -138,36 +152,7 @@
 
 				<section>
 					<section>
-						<h2>Linear Systems</h2>
-						<ul>
-							<li>Homogeneity</li>
-							<li>Additivity</li>
-							<li>Shift invariance</li>
-						</ul>
-						<aside class="notes">
-							Most DSP techniques rely on being able to break the signal down into simple components, and each piece processed individually<br/><br/>
-
-							Dealing only with linear systems simplifies this
-						</aside>
-					</section>
-
-					<section>
-						<h2>Examples of Linear Systems</h2>
-						<ol>
-							<li>Electrical circuits</li>
-						</ol>
-					</section>
-
-					<section>
-						<h2>Examples of Non-Linear Systems</h2>
-						<ol>
-							<li>Electrical distortion e.g. clipping</li>
-							<li>When temperature affects rates</li>
-						</ol>
-					</section>
-
-					<section>
-						<h2>All signals are just sine waves</h2>
+						<h2>All signals are just sin/cos waves</h2>
 						<img src='img/sin_components.png' id="sincomp">
 						=
 						<img src='img/sawtooth.png' id="sawtooth">
@@ -184,30 +169,6 @@
 						</aside>
 					</section>
 
-					<section>
-						<h2>All signals can also be represented as composed of shifted and scaled delta signal</h2>
-						<img src="img/stem.png">
-					</section>
-
-					<section>
-						<h2>Impulse Response</h2>
-						<img src="img/stem_0.png" class="fragment current-visible" id="impulse-response">
-						<img src="img/stem_1.png" class="fragment current-visible" id="impulse-response">
-						<img src="img/stem_2.png" class="fragment current-visible" id="impulse-response">
-						<img src="img/stem_3.png" class="fragment current-visible" id="impulse-response">
-						<img src="img/stem_4.png" class="fragment current-visible" id="impulse-response">
-						<img src="img/stem_6.png" class="fragment current-visible" id="impulse-response">
-						<img src="img/stem_7.png" class="fragment current-visible" id="impulse-response">
-						<img src="img/stem_8.png" class="fragment current-visible" id="impulse-response">
-						<img src="img/stem_9.png" class="fragment current-visible" id="impulse-response">
-						<img src="img/stem_10.png" class="fragment current-visible" id="impulse-response">
-						<img src="img/stem_11.png" class="fragment current-visible" id="impulse-response">
-						<div class="fragment">
-						<img src="img/delta.png" id="impulse-response">
-						<p id='delta-txt'>Delta signal</p>
-						</div>
-					</section>
-
 				</section>
 
 				<section>
@@ -215,7 +176,7 @@
 						<h2>Sound Example</h2>
 						<div id='player'>
 							<img src='img/twotone_timeseries.png'>
-							<audio src="audio/words.wav" controls="controls">
+							<audio src="audio/twotone.wav" controls="controls">
 							Your browser does not support <code>audio</code>
 							</audio>
 						</div>
@@ -378,10 +339,54 @@
 						<h2>Brightness shifts pixel values up or down</h2>
 						<img src='img/brightness.png'>
 					</section>
+
+                    <section>
+<pre><code class='python'>
+    image = plt.imread('img/foggy_headshot.jpg')
+    imshape = image.shape
+    flat_image = image.flatten()    
+
+    # increase brightness
+    brighter = np.arange(256)
+    brighter += 100
+    brighter[brighter>255] = 255
+
+    bright_adjusted = brighter[flat_image]
+    bright_adjusted = bright_adjusted.reshape(*imshape)
+
+    # decrease brightness
+    darker = np.arange(256)
+    darker -= 100
+    darker[darker<0] = 0
+
+    bright_adjusted = darker[flat_image]
+    bright_adjusted = bright_adjusted.reshape(*imshape)
+</code></pre>                
+                    </section>
+
 					<section>
 						<h2>Contrast stretches pixel values</h2>
 						<img src='img/contrast.png'>
 					</section>
+
+                    <section>
+<pre><code class='python'>
+    def adjust_contrast(image, factor, brightness):
+        contrast_map = np.arange(256)
+        contrast_map = (contrast_map * factor) - (brightness * (factor - 1))
+
+        contrast_map[contrast_map > 255] = 255
+        contrast_map[contrast_map < 0] = 0
+        
+        return contrast_map[image], contrast_map
+
+    adjusted_image, contrast_map = adjust_contrast(flat_image, factor=3, brightness=128)
+
+    adjusted_image, contrast_map = adjust_contrast(flat_image, factor=1./3, brightness=128)
+
+</code></pre>                
+                    </section>
+
 					<section>
 						<h2>Histogram Equalization</h2>
 						<img src='img/image_histo.png'>
@@ -408,9 +413,9 @@
 	import numpy as np
 	import matplotlib.pyplot as plt
 
-	image = plt.imread('img/grey_me.jpg')
-	imshape = grey_me.shape
-	flat_image = grey_me.flatten()
+	image = plt.imread('img/yosam_bw.jpg')
+	imshape = yosam_bw.shape
+	flat_image = yosam_bw.flatten()
 
 	bin_counts, bin_numbers = np.histogram(flat_image, bins=256, 
 										   range=(0,256))
@@ -491,10 +496,6 @@ COLOR!
 					<section>
 						<h2>Divide image into 8x8 chunks</h2>
 						<img src="img/gridface_image.jpg">
-					</section>
-
-					<section>
-						<img src="img/grid_square.jpg">
 <div id='grid-code'>
 <pre><code class='python'>
 	for row in range(0, ylen, 8):
@@ -504,11 +505,16 @@ COLOR!
 	
 </code></pre>
 </div>
+                    </section>
+
+                    <section>
+                        <img src="img/grid_square.png">
 					</section>
 
 					<section>
 						<h2>Discrete Cosine Transform (DCT)</h2>
-						<img src="DCT_basis.png">
+						<img src="img/DCT2.png">
+                        <img src="img/numbered_grid.png">
 						<aside class="notes">
 							zig zag image: https://loaighoraba.wordpress.com/2011/07/10/zigzag-scanning-source-code/
 							http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1007
