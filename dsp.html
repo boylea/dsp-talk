@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>DSP - An Intro</title>
+
+		<link rel="stylesheet" href="reveal/css/reveal.css">
+		<link rel="stylesheet" href="dsp.css">
+		<link rel="stylesheet" href="reveal/lib/css/atelier-cave-light.css">
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<div class="slides">
+
+				<section>
+					<h2>Data Transformation Super Powers with Digital Signal Processing</h2>
+					<p>Amy Boyle @amylouboyle</p>
+				</section>
+
+				<section>
+					<h2>Digital Signal Processing = DSP</h2>
+					<p>
+					<ul>
+					<li>Who am I?</li>
+					<li>What is DSP?</li>
+					<li>Sound</li>
+					<li>Images</li>
+					<li>Compression</li>
+					</ul>
+					</p>
+				</section>
+
+				<section>
+					<h2>Who Am I?</h2>
+					<ul>
+						<li>Software Engineer</li>
+						<li>Auditory Neuroscience Research</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>What is DSP?</h2>
+						<p>Digital signal processing (DSP) is the mathematical manipulation of an information signal to modify or improve it in some way. It is characterized by the representation of discrete time, discrete frequency, or other discrete domain signals by a sequence of numbers or symbols and the processing of these signals.</p>
+
+						<aside class="notes">
+							But DSP is so broad, it is quite difficult to come up with a short explanation that covers it and is comprehensible.
+						</aside>
+					</section>
+
+					<section>
+						<img src="img/math_barf.png">
+						<aside class="notes">
+							Googling DSP problems can lead to the situation where authors are barfing math on you.
+
+							http://25.media.tumblr.com/tumblr_lry7eidRC41qela2qo1_500.png
+						</aside>
+					</section>
+
+					<section>
+						Take real-world continuous measurement. </br></br>Turn it into a discrete series of data points. </br></br>Use an algorithm to manipulate the data samples to do cool things.
+					</section>
+
+					<section>
+						<h2><u>D</u>oing <u>S</u>tuff to <u>P</u>oints</h2>(of data)
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>What is a Signal?</h2>
+						<h2></h2>
+						<p>
+						A type of physical data that conveys information. A description of how one parameter depends on another
+						</p>
+					</section>
+					<section>
+						<h2>Sound</h2>
+						<img src='img/sound.png'>
+					</section>
+					<section>
+						Light
+					</section>
+					<section>
+						Temperature
+					</section>
+					<section>
+						heart beats
+					</section>
+					<section>
+						hiking trail elevation
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>A digital signal is a signal turned into discrete values at discrete points in time or space</h2>
+						<img src="img/discretize.png">
+						<aside class="notes">
+							In order to be able to hold the signal in computer memory we need to be able to discretize the signal.
+
+							* sampling
+							* quantization
+						</aside>
+					</section>
+					<section>
+					<h2>Sampling get values at regular intervals</h2>
+						<img src='img/sampling.png'>
+					</section>
+					<section>
+						Quantization buckets values
+						<img src='img/quantize.png'>
+					</section>
+					<section>
+						<img src='img/discretize_grid.png'>
+					</section>
+					<section>
+						<img src='img/sampled.png'>
+						<aside class="notes">
+							Having a low resolution of sampling or quantization can distort the signal
+						</aside>
+					</section>
+					<section>
+						Anytime you are doing anything to that signal, that's DSP
+						<aside class="notes">
+							<ul>
+							<li>Mastering all of DSP is an unreasonable goal</li>
+							<li>get an overview, and focus on an area of interest</li>
+							</ul>
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Linear Systems</h2>
+						<ul>
+							<li>Homogeneity</li>
+							<li>Additivity</li>
+							<li>Shift invariance</li>
+						</ul>
+						<aside class="notes">
+							Most DSP techniques rely on being able to break the signal down into simple components, and each piece processed individually<br/><br/>
+
+							Dealing only with linear systems simplifies this
+						</aside>
+					</section>
+
+					<section>
+						<h2>Examples of Linear Systems</h2>
+						<ol>
+							<li>Electrical circuits</li>
+						</ol>
+					</section>
+
+					<section>
+						<h2>Examples of Non-Linear Systems</h2>
+						<ol>
+							<li>Electrical distortion e.g. clipping</li>
+							<li>When temperature affects rates</li>
+						</ol>
+					</section>
+
+					<section>
+						<h2>All signals are just sine waves</h2>
+						<img src='img/sin_components.png' id="sincomp">
+						=
+						<img src='img/sawtooth.png' id="sawtooth">
+<div id='sawtooth-code'>
+<pre><code class='python'>
+	t = np.arange(0.0, 1.0, 0.01)
+	signal = np.zeros_like(t)
+	for i in range(2, 100, 2):
+	    signal = np.sin(i*2*t*np.pi)/i
+</code></pre>
+</div>
+						<aside class='notes'>
+							All signals can be composed from scalings of sine waves
+						</aside>
+					</section>
+
+					<section>
+						<h2>All signals can also be represented as composed of shifted and scaled delta signal</h2>
+						<img src="img/stem.png">
+					</section>
+
+					<section>
+						<h2>Impulse Response</h2>
+						<img src="img/stem_0.png" class="fragment current-visible" id="impulse-response">
+						<img src="img/stem_1.png" class="fragment current-visible" id="impulse-response">
+						<img src="img/stem_2.png" class="fragment current-visible" id="impulse-response">
+						<img src="img/stem_3.png" class="fragment current-visible" id="impulse-response">
+						<img src="img/stem_4.png" class="fragment current-visible" id="impulse-response">
+						<img src="img/stem_6.png" class="fragment current-visible" id="impulse-response">
+						<img src="img/stem_7.png" class="fragment current-visible" id="impulse-response">
+						<img src="img/stem_8.png" class="fragment current-visible" id="impulse-response">
+						<img src="img/stem_9.png" class="fragment current-visible" id="impulse-response">
+						<img src="img/stem_10.png" class="fragment current-visible" id="impulse-response">
+						<img src="img/stem_11.png" class="fragment current-visible" id="impulse-response">
+						<div class="fragment">
+						<img src="img/delta.png" id="impulse-response">
+						<p id='delta-txt'>Delta signal</p>
+						</div>
+					</section>
+
+				</section>
+
+				<section>
+					<section>
+						<h2>Sound Example</h2>
+						<div id='player'>
+							<img src='img/twotone_timeseries.png'>
+							<audio src="audio/words.wav" controls="controls">
+							Your browser does not support <code>audio</code>
+							</audio>
+						</div>
+					</section>
+					<section>
+						<h2 id='fft-head'>Fourier Transform converts time series data into frequency information</h2>
+						<div id='fft-image'>
+						<img src='img/twotone_fft_zoom.png' id='fft-zoom'>
+						</div>
+<div id='fft-code'>
+<pre><code class='python'>
+	import numpy as np
+	import matplotlib.pyplot as plt
+
+	fs = 44100
+	step_size = 1./44100
+	t = np.arange(0.0, 1.0, step_size)
+	twotone = np.sin(t*750*2*np.pi) + \
+			   np.sin(t*1500*2*np.pi)
+
+	spectrum = np.fft.rfft(twotone)
+	freqs = np.fft.rfftfreq(len(twotone), 1./fs)
+
+	plt.plot(freqs, abs(spectrum))
+
+</code></pre>
+</div>
+					</section>
+					<section>
+						<h2>Running the FFT on time chunks gives a spectrogram</h2>
+<div id='fft-code'>
+<pre><code class='python'>
+	import numpy as np
+	import matplotlib.pyplot as plt
+
+	fs = 44100
+	step_size = 1./44100
+	t = np.arange(0.0, 1.0, step_size)
+	twotone = np.sin(t*750*2*np.pi) + \
+			   np.sin(t*1500*2*np.pi)
+
+	plt.specgram(twotone, Fs=fs, NFFT=512, 
+				 noverlap=0, cmap='gnuplot');
+
+</code></pre>
+</div>
+						<div id='fft-image'>
+						<img src='img/twotone_spectrogram.png'>
+						</div>
+					</section>
+					<section>
+						<h2>Speech is more complex</h2>
+						<img src="img/speech_spectrogram.png"><br/>
+						<audio src="audio/distorted.wav" controls="controls">
+							Your browser does not support <code>audio</code>
+						</audio>
+					</section>
+
+					<section>
+<div id='filter-code'>
+<pre><code class='python'>
+	from scipy.io import wavfile
+	from scipy import signal
+
+	fs, audio = wavfile.read('audio/distorted.wav')
+
+	passband = 10000. #Hz
+	stopband= 11000.
+	nyq = 0.5 * fs
+
+	order, normalized_cutoff = signal.buttord(passband/nyq, stopband/nyq, 3, 40)
+	b, a = signal.butter(order, normalized_cutoff, btype='low')
+
+	low_passed = np.zeros_like(audio)
+	
+	low_passed[:,0] = signal.lfilter(b, a, audio[:,0])
+	low_passed[:,1] = signal.lfilter(b, a, audio[:,1])
+
+	wavfile.write('filtered.wav', fs, low_passed)
+
+</code></pre>
+</div>
+					</section>
+
+					<section>
+						<h2>Filtered</h2>
+						<img src="img/filtered.png"><br/>
+						<audio src="audio/filtered.wav" controls="controls">
+							Your browser does not support <code>audio</code>
+						</audio>
+					</section>
+
+
+					<section>
+						<h2>Inadequate sampling rate can cause aliasing</h2>
+<div id='aliasing-code'>
+<pre><code class='python'>
+	fs = 500
+	step_size = 1./fs
+	t = np.arange(0.0, 1.0, step_size)
+	freq0 = 120
+	freq1 = 110
+	twotone = np.sin(t*freq0*2*np.pi) + \
+			  np.sin(t*freq1*2*np.pi)
+
+	spectrum = np.fft.rfft(twotone)
+	freqs = np.fft.rfftfreq(len(twotone), 1./fs)
+
+	ax, fig = plot(freqs, abs(spectrum), '
+				  Frequency (Hz)', 'Amplitude')
+
+</code></pre>
+</div>
+				<img src="img/noalias.png" id="alias-image">
+				</section>
+
+				<section>
+						<h2>Inadequate sampling rate can cause aliasing</h2>
+<div id='aliasing-code'>
+<pre><code class='python'>
+	fs = 50
+	step_size = 1./fs
+	t = np.arange(0.0, 1.0, step_size)
+	freq0 = 120
+	freq1 = 110
+	twotone = np.sin(t*freq0*2*np.pi) + \
+			  np.sin(t*freq1*2*np.pi)
+
+	spectrum = np.fft.rfft(twotone)
+	freqs = np.fft.rfftfreq(len(twotone), 1./fs)
+
+	ax, fig = plot(freqs, abs(spectrum), '
+				  Frequency (Hz)', 'Amplitude')
+
+</code></pre>
+</div>
+				<img src="img/alias.png" id="alias-image">
+				</section>
+				
+				<section>
+					<img src="img/aliasing.png">
+				</section>
+
+				</section>	
+ 
+				<section>
+					<section>
+						<h2>An Image is a 2D signal in the spatial domain</h2>
+						<div id="img-bw">
+						<img src='img/yosam_bw.jpg'>
+						</div>
+						<div id='img-table' class="fragment">
+						<table><tr><th>46</th><th>34</th><th>77</th><th>96</th><th>97</th></tr><tr><td>0</td><td>0</td><td>44</td><td>92</td><td>112</td></tr><tr><td>0</td><td>0</td><td>52</td><td>77</td><td>92</td></tr><tr><td>0</td><td>0</td><td>60</td><td>71</td><td>75</td></tr><tr><td>24</td><td>43</td><td>61</td><td>66</td><td>63</td></tr></table>
+						</div>
+						<aside class="notes">
+							* Image is a 2D signal in the spatial domain
+						</aside>
+					</section>
+					<section>
+						<h2>Brightness shifts pixel values up or down</h2>
+						<img src='img/brightness.png'>
+					</section>
+					<section>
+						<h2>Contrast stretches pixel values</h2>
+						<img src='img/contrast.png'>
+					</section>
+					<section>
+						<h2>Histogram Equalization</h2>
+						<img src='img/image_histo.png'>
+						<div id='histo-code'>
+						<pre><code class='python'>
+						bin_counts, bin_numbers = np.histogram(flat_image, bins=256, range=(0,256))
+						</code></pre>
+					</section>
+					<section>
+						<h2>Histogram Equalization</h2>
+						<img src='img/histo_map.png'>
+						<pre><code class='python'>
+						bin_counts, bin_numbers = np.histogram(flat_image, bins=256, range=(0,256))
+						npx = len(flat_image)
+						histo_map = (np.cumsum(bin_counts)/float(npx))*256
+						</code></pre>
+					</section>
+					<section>
+						<div id="equalized-image">
+						<img src='img/equalized_image.jpg'>
+						</div>
+<div id='equalization-code'>
+<pre><code class='python'>
+	import numpy as np
+	import matplotlib.pyplot as plt
+
+	image = plt.imread('img/grey_me.jpg')
+	imshape = grey_me.shape
+	flat_image = grey_me.flatten()
+
+	bin_counts, bin_numbers = np.histogram(flat_image, bins=256, 
+										   range=(0,256))
+	npx = len(flat_image)
+	histo_map = (np.cumsum(bin_counts)/float(npx))*256
+
+	contrast_adjusted = histo_map[flat_image]
+	contrast_adjusted = contrast_adjusted.reshape(*imshape)
+	plt.imshow(contrast_adjusted, cmap=plt.cm.Greys_r)
+
+</code></pre>
+</div>
+					</section>
+
+					<section>
+<div id='equalization-code'>
+COLOR!
+<pre><code class='python'>
+	from PIL import Image, ImageOps
+	import matplotlib.pyplot as plt
+
+	fig = plt.figure(figsize=(6,12))
+	image = Image.open("img/foggy_headshot.jpg")
+	plt.subplot(2,1,1)
+	plt.imshow(image)
+
+	equalized = ImageOps.equalize(image)
+	plt.subplot(2,1,2)
+	plt.imshow(equalized)
+
+</code></pre>
+</div>
+						<div id="equalized-image">
+						<img src="img/color_equalization.png">
+						</div>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Compression with JPEG</h2>
+						Joint Photographic Experts Group
+						<aside class="notes">
+							* A compression algorithm, not actually an image format
+							* Most common way to store image (according to wikipedia)
+						</aside>
+					</section>
+					<section>
+						<h2>JPEG Compression Steps</h2>
+						<ol>
+							<li>Convert RGB to YCbCr</li>
+							<li>Downsample</li>
+							<li>DCT</li>
+							<li>Quantize</li>
+							<li>Encode</li>
+						</ol>
+					</section>
+
+					<section>
+					<h2>Convert RBG to YCbCr</h2>
+						<img src="img/ycbcr.jpg">
+<div id='ycbcr-code'>
+<pre><code class='python'>
+	from PIL import Image
+	pimage = Image.open(image_file)
+	ycbcr = pimage.convert('YCbCr')
+	image_array = np.array(ycbcr)
+
+</code></pre>
+</div>
+					</section>
+
+					<section>
+						<h2>Downsample</h2>
+						Assign say 4 chroma pixels for each luminance
+					</section>
+
+					<section>
+						<h2>Divide image into 8x8 chunks</h2>
+						<img src="img/gridface_image.jpg">
+					</section>
+
+					<section>
+						<img src="img/grid_square.jpg">
+<div id='grid-code'>
+<pre><code class='python'>
+	for row in range(0, ylen, 8):
+	    for col in range(0, xlen, 8):
+	        chunk = image_array[row:row+8, col:col+8, 0]
+	        ...
+	
+</code></pre>
+</div>
+					</section>
+
+					<section>
+						<h2>Discrete Cosine Transform (DCT)</h2>
+						<img src="DCT_basis.png">
+						<aside class="notes">
+							zig zag image: https://loaighoraba.wordpress.com/2011/07/10/zigzag-scanning-source-code/
+							http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1007
+						</aside>
+					</section>
+
+					<section>
+						<h2>Quantization</h2>
+						<img src="img/dct_grid.png">
+						<aside class="notes">
+							Divide each component in the frequency domain by a constant for that component. Round to the nearest integer
+						</aside>
+					</section>
+
+					<section>
+						<img src="img/dct_overview.png">
+					</section>
+
+					<section>
+						<h2>Apply Huffman/run-length encoding</h2>
+						<img src="img/zig_zag_no_numbers.jpg">
+						<aside class="notes">
+							http://www.ual.es/~vruiz/Docencia/Apuntes/Coding/Image/03-JPEG/index.html
+						</aside>
+					</section>
+
+					<section>
+						<img src="img/grace_hopper.png">
+						<img src="img/grace_hopper.jpg">
+					</section>
+				</section>
+
+				<section>
+					<section>
+						Remember...
+						<ul>
+							<li>Signals are composed of sine waves</li>
+							<li>Adequate sampling rate is important</li>
+							<li>Understand the underlying process</li>
+						</ul>
+					</section>
+
+					<section>
+						<p>Presentation on amyboyle.ninja</p>
+						<p>Source on Github</p>
+						<br/>
+						<p>@amylouboyle</p>
+					</section>
+				</section>
+
+			</div>
+		</div>
+
+		<script src="reveal/lib/js/head.min.js"></script>
+		<script src="reveal/js/reveal.js"></script>
+		<script src="reveal/plugin/notes/notes.js"></script>
+
+		<script>
+
+			Reveal.initialize({width: 1280, height: 720,
+							   history:true,
+							   dependencies:[{ src: 'reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },]
+							  });
+
+		</script>
+
+	</body>
+</html>
