@@ -108,6 +108,12 @@ body {
     width: 50%;
     margin-left: 20%
 }
+
+#dct-code {
+    width: 60%;
+    margin-left:20%;
+}
+
 #img-bw {
     float: left;
     padding-left: 20%;    

@@ -40,6 +40,9 @@
 					<ul>
 						<li>Software Engineer</li>
 						<li>Auditory Neuroscience Research</li>
+						<aside class="notes">
+							I'll be using Python because ...
+						</aside>
 					</ul>
 				</section>
 
@@ -49,14 +52,16 @@
 						<p>Digital signal processing (DSP) is the mathematical manipulation of an information signal to modify or improve it in some way. It is characterized by the representation of discrete time, discrete frequency, or other discrete domain signals by a sequence of numbers or symbols and the processing of these signals.</p>
 
 						<aside class="notes">
-							But DSP is so broad, it is quite difficult to come up with a short explanation that covers it and is comprehensible.
+							If you try to Google DSP, you will be confronted with a barely comprehensible
 						</aside>
 					</section>
 
 					<section>
 						<img src="img/math_barf.png">
 						<aside class="notes">
-							Googling DSP problems can lead to the situation where authors are barfing math on you.
+							Googling DSP problems can lead to the situation where authors are barfing math on you. <br/><br/>
+
+							There will be no equations
 
 							http://25.media.tumblr.com/tumblr_lry7eidRC41qela2qo1_500.png
 						</aside>
@@ -76,7 +81,8 @@
 						<h2>What is a Signal?</h2>
 						<h2></h2>
 						<p>
-						A type of physical data that conveys information. A description of how one parameter depends on another
+						A type of physical data that conveys information. <br/><br/>
+						A description of how one parameter depends on another
 						</p>
 					</section>
 					<section>
@@ -118,8 +124,6 @@
 						<aside class="notes">
 							In order to be able to hold the signal in computer memory we need to be able to discretize the signal.
 
-							* sampling
-							* quantization
 						</aside>
 					</section>
 					<section>
@@ -132,6 +136,9 @@
 					</section>
 					<section>
 						<img src='img/discretize_grid.png'>
+						<aside class="notes">
+							We have to do both
+						</aside>
 					</section>
 					<section>
 						<img src='img/sampled.png'>
@@ -162,10 +169,15 @@
 	signal = np.zeros_like(t)
 	for i in range(2, 100, 2):
 	    signal = np.sin(i*2*t*np.pi)/i
+
 </code></pre>
 </div>
 						<aside class='notes'>
-							All signals can be composed from scalings of sine waves
+							All signals can be composed from scalings of sine waves<br/><br/>
+
+							This is a trivial example
+
+							We can do this for *any* signal, if we know which waves to add together
 						</aside>
 					</section>
 
@@ -406,7 +418,7 @@
 					</section>
 					<section>
 						<div id="equalized-image">
-						<img src='img/equalized_image.jpg'>
+						<img src='img/equalized_image.png'>
 						</div>
 <div id='equalization-code'>
 <pre><code class='python'>
@@ -515,6 +527,16 @@ COLOR!
 						<h2>Discrete Cosine Transform (DCT)</h2>
 						<img src="img/DCT2.png">
                         <img src="img/numbered_grid.png">
+<div id="dct-code">
+<pre><code class='python'>
+	from scipy.fftpack import dct
+
+	dct_coefficents = dct(dct(shifted_grid, axis=0), axis=1)
+
+	print dct_coefficents.astype(int)
+
+</code></pre>
+</div>
 						<aside class="notes">
 							zig zag image: https://loaighoraba.wordpress.com/2011/07/10/zigzag-scanning-source-code/
 							http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1007
