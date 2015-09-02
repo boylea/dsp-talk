@@ -109,6 +109,10 @@ body {
     margin-left: 20%
 }
 
+#grid-square {
+    width: 80%;
+}
+
 #dct-code {
     width: 60%;
     margin-left:20%;
@@ -116,7 +120,7 @@ body {
 
 #img-bw {
     float: left;
-    padding-left: 20%;    
+    padding-left: 20%;
 }
 
 #img-table {

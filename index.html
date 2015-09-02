@@ -127,11 +127,11 @@
 						</aside>
 					</section>
 					<section>
-					<h2>Sampling get values at regular intervals</h2>
+					<h2>Sampling gets values at regular intervals</h2>
 						<img src='img/sampling.png'>
 					</section>
 					<section>
-						Quantization buckets values
+						<h2>Quantization buckets values</h2>
 						<img src='img/quantize.png'>
 					</section>
 					<section>
@@ -230,7 +230,7 @@
 	twotone = np.sin(t*750*2*np.pi) + \
 			   np.sin(t*1500*2*np.pi)
 
-	plt.specgram(twotone, Fs=fs, NFFT=512, 
+	plt.specgram(twotone, Fs=fs, NFFT=512,
 				 noverlap=0, cmap='gnuplot');
 
 </code></pre>
@@ -263,7 +263,7 @@
 	b, a = signal.butter(order, normalized_cutoff, btype='low')
 
 	low_passed = np.zeros_like(audio)
-	
+
 	low_passed[:,0] = signal.lfilter(b, a, audio[:,0])
 	low_passed[:,1] = signal.lfilter(b, a, audio[:,1])
 
@@ -327,13 +327,13 @@
 </div>
 				<img src="img/alias.png" id="alias-image">
 				</section>
-				
+
 				<section>
 					<img src="img/aliasing.png">
 				</section>
 
-				</section>	
- 
+				</section>
+
 				<section>
 					<section>
 						<h2>An Image is a 2D signal in the spatial domain</h2>
@@ -356,7 +356,7 @@
 <pre><code class='python'>
     image = plt.imread('img/foggy_headshot.jpg')
     imshape = image.shape
-    flat_image = image.flatten()    
+    flat_image = image.flatten()
 
     # increase brightness
     brighter = np.arange(256)
@@ -373,7 +373,7 @@
 
     bright_adjusted = darker[flat_image]
     bright_adjusted = bright_adjusted.reshape(*imshape)
-</code></pre>                
+</code></pre>
                     </section>
 
 					<section>
@@ -389,14 +389,14 @@
 
         contrast_map[contrast_map > 255] = 255
         contrast_map[contrast_map < 0] = 0
-        
+
         return contrast_map[image], contrast_map
 
     adjusted_image, contrast_map = adjust_contrast(flat_image, factor=3, brightness=128)
 
     adjusted_image, contrast_map = adjust_contrast(flat_image, factor=1./3, brightness=128)
 
-</code></pre>                
+</code></pre>
                     </section>
 
 					<section>
@@ -429,7 +429,7 @@
 	imshape = yosam_bw.shape
 	flat_image = yosam_bw.flatten()
 
-	bin_counts, bin_numbers = np.histogram(flat_image, bins=256, 
+	bin_counts, bin_numbers = np.histogram(flat_image, bins=256,
 										   range=(0,256))
 	npx = len(flat_image)
 	histo_map = (np.cumsum(bin_counts)/float(npx))*256
@@ -514,13 +514,13 @@ COLOR!
 	    for col in range(0, xlen, 8):
 	        chunk = image_array[row:row+8, col:col+8, 0]
 	        ...
-	
+
 </code></pre>
 </div>
                     </section>
 
                     <section>
-                        <img src="img/grid_square.png">
+                        <img src="img/grid_square.png" id='grid-square'>
 					</section>
 
 					<section>
