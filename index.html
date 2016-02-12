@@ -338,7 +338,7 @@
 					<section>
 						<h2>An Image is a 2D signal in the spatial domain</h2>
 						<div id="img-bw">
-						<img src='img/yosam_bw.jpg'>
+						<img src='img/ptown_bw.jpg'>
 						</div>
 						<div id='img-table' class="fragment">
 						<table><tr><th>46</th><th>34</th><th>77</th><th>96</th><th>97</th></tr><tr><td>0</td><td>0</td><td>44</td><td>92</td><td>112</td></tr><tr><td>0</td><td>0</td><td>52</td><td>77</td><td>92</td></tr><tr><td>0</td><td>0</td><td>60</td><td>71</td><td>75</td></tr><tr><td>24</td><td>43</td><td>61</td><td>66</td><td>63</td></tr></table>
@@ -353,8 +353,10 @@
 					</section>
 
                     <section>
+						<h2>Brightness shifts pixel values up or down</h2>
+
 <pre><code class='python'>
-    image = plt.imread('img/foggy_headshot.jpg')
+    image = plt.imread('img/ptown.jpg')
     imshape = image.shape
     flat_image = image.flatten()
 
@@ -382,6 +384,7 @@
 					</section>
 
                     <section>
+						<h2>Contrast stretches pixel values</h2>
 <pre><code class='python'>
     def adjust_contrast(image, factor, brightness):
         contrast_map = np.arange(256)
@@ -398,6 +401,11 @@
 
 </code></pre>
                     </section>
+					<section>
+					<h2>Histogram equalization stretches & shifts pixel values according to concentration</h2>
+						<img src='img/ninja_bw.jpg'>
+					</section>
+
 
 					<section>
 						<h2>Histogram Equalization</h2>
@@ -425,9 +433,9 @@
 	import numpy as np
 	import matplotlib.pyplot as plt
 
-	image = plt.imread('img/yosam_bw.jpg')
-	imshape = yosam_bw.shape
-	flat_image = yosam_bw.flatten()
+	image = plt.imread('img/ninja_bw.jpg')
+	imshape = ninja_bw.shape
+	flat_image = ninja_bw.flatten()
 
 	bin_counts, bin_numbers = np.histogram(flat_image, bins=256,
 										   range=(0,256))
