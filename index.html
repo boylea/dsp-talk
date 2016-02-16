@@ -18,7 +18,7 @@
 			<div class="slides">
 
 				<section>
-					<h2>Data Transformation Super Powers with Digital Signal Processing</h2>
+					<h2>Digital Signal Processing Demystified</h2>
 					<p>Amy Boyle @amylouboyle</p>
 				</section>
 
@@ -41,9 +41,6 @@
 						<ul>
 							<li>Software Engineer</li>
 							<li>Auditory Neuroscience Research</li>
-							<aside class="notes">
-								I'll be using Python because ...
-							</aside>
 						</ul>
 					</section>
 					<section>
@@ -53,6 +50,10 @@
 							<li>Signal "literacy"</li>
 							<li>Give you a starting point to dive further</li>
 						</ul>
+
+						<aside class="notes">
+							I'll be using Python because ...
+						</aside>
 
 					</section>
 				</section>
@@ -107,9 +108,6 @@
 							<p>Light</p>
 							<img src="img/puppy.jpg">
 
-	                        <aside class="notes">
-	                            http://images6.fanpop.com/image/photos/36300000/German-Shepherds-image-german-shepherds-36311386-1997-1636.jpg
-	                        </aside>
 						</div>
 						</div>
 						<div class="signal-row">
@@ -120,18 +118,20 @@
 						<div class="signal-example-grid">
 							<p>heart beats</p>
 							<img src="img/heart_rate.jpg">
-							<aside class="notes">
-							http://www.sac.edu/AcademicProgs/ScienceMathHealth/Nursing/emergencymedicaltechnician/Documents/Heart%20Rate.jpg
-							</aside>
 						</div>
 						<div class="signal-example-grid">
 							<p>hiking trail elevation</p>
 							<img src="img/elevation.jpg">
-							<aside class="notes">
-								http://www.shyamal.com/Hikes/ElCajonMt/ElCajonMt_elev.jpg
-							</aside>
 						</div>
 						</div>
+
+                        <aside class="notes">
+                            http://images6.fanpop.com/image/photos/36300000/German-Shepherds-image-german-shepherds-36311386-1997-1636.jpg
+
+							http://www.sac.edu/AcademicProgs/ScienceMathHealth/Nursing/emergencymedicaltechnician/Documents/Heart%20Rate.jpg
+
+							http://www.shyamal.com/Hikes/ElCajonMt/ElCajonMt_elev.jpg
+						</aside>
 					</section>
 
 				</section>
@@ -142,16 +142,26 @@
 						<img src="img/discretize.png">
 						<aside class="notes">
 							In order to be able to hold the signal in computer memory we need to be able to discretize the signal.
-
 						</aside>
 					</section>
 					<section>
-					<h2>Sampling gets values at regular intervals</h2>
+						<h2>Sampling gets values at regular intervals</h2>
 						<img src='img/sampling.png'>
+
+						<aside class="notes">
+							* We need to pick a time or space interval a which to collect data
+							* This will give us our points along the x-axis
+							* E.g every ms, or mm
+						</aside>
 					</section>
 					<section>
 						<h2>Quantization buckets values</h2>
 						<img src='img/quantize.png'>
+
+						<aside class="notes">
+							* We need to put our sample point into a value bucket
+							* E.g. if we are storing our data in an 8-bit int, we divide up the y-axis range and ask which value it's closest to
+						</aside>
 					</section>
 					<section>
 						<img src='img/discretize_grid.png'>
@@ -349,6 +359,10 @@
 
 				<section>
 					<img src="img/aliasing.png">
+
+				<aside class="notes">
+					CD's are sampled at 44.1 kHz...
+				</aside>
 				</section>
 
 				</section>
@@ -421,8 +435,13 @@
 </code></pre>
                     </section>
 					<section>
-					<h2>Histogram equalization stretches & shifts pixel values according to concentration</h2>
-						<img src='img/ninja_bw.jpg'>
+						<h2>Histogram equalization stretches & shifts pixel values according to concentration</h2>
+							<img src='img/ninja_bw.jpg'>
+
+						<aside class="notes">
+							This allows us to achieve a custom, non-linear mapping
+						</aside>
+
 					</section>
 
 
