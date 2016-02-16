@@ -193,7 +193,7 @@
 						=
 						<img src='img/sawtooth.png' id="sawtooth">
 <div id='sawtooth-code'>
-<pre><code class='python'>
+<pre><code class="python">
 	t = np.arange(0.0, 1.0, 0.01)
 	signal = np.zeros_like(t)
 	for i in range(2, 100, 2):
@@ -649,7 +649,11 @@ COLOR!
 
 			Reveal.initialize({width: 1280, height: 720,
 							   history:true,
-							   dependencies:[{ src: 'reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },]
+							   dependencies:[{ src: 'reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+											{ src: 'reveal/plugin/zoom-js/zoom.js', async: true },
+											{ src: 'plugin/notes/notes.js', async: true }
+
+							   ]
 							  });
 
 		</script>
