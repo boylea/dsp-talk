@@ -81,6 +81,21 @@ body {
     font-size: 145%;
 }
 
+#before-title {
+    float:left;
+    padding-left: 25%
+}
+
+#before-spec {
+    float:left;
+    width: 50%
+}
+
+#after-spec {
+    float:left;
+    width: 50%
+}
+
 #aliasing-code {
     float:left;
     margin-top:50px;
@@ -100,6 +115,14 @@ body {
 
 #contrast-code {
     font-size: 115%;
+}
+
+#histo-map {
+    padding-bottom: 0;
+}
+
+#histo-code {
+    font-size: 125%;
 }
 
 #equalization-code {

@@ -33,6 +33,11 @@
 					<li>Compression</li>
 					</ul>
 					</p>
+
+					<aside class="notes">
+						We'll learn how to filter out unwanted sounds from audio files,
+						and how to extract features from images.
+					</aside>
 				</section>
 
 				<section>
@@ -304,7 +309,9 @@
 
 					<section>
 						<h2>Filtered</h2>
-						<img src="img/filtered.png"><br/>
+						<div id="spec-titles"><div id="before-title">Before</div><div id="after-title">After</div></div>
+						<img src="img/speech_spectrogram.png" id="before-spec">
+						<img src="img/filtered.png" id="after-spec">
 						<audio src="audio/filtered.wav" controls="controls">
 							Your browser does not support <code>audio</code>
 						</audio>
@@ -452,20 +459,23 @@
 
 					<section>
 						<h2>Histogram Equalization</h2>
-						<img src='img/image_histo.png'>
+						<img src='img/image_histo.png' id="histo-img">
 						<div id='histo-code'>
-						<pre><code class='python'>
-						bin_counts, bin_numbers = np.histogram(flat_image, bins=256, range=(0,256))
-						</code></pre>
+	<pre><code class='python'>
+	bin_counts, bin_numbers = np.histogram(flat_image, bins=256, range=(0,256))
+	</code></pre>
+						</div>
 					</section>
 					<section>
-						<h2>Histogram Equalization</h2>
-						<img src='img/histo_map.png'>
-						<pre><code class='python'>
-						bin_counts, bin_numbers = np.histogram(flat_image, bins=256, range=(0,256))
-						npx = len(flat_image)
-						histo_map = (np.cumsum(bin_counts)/float(npx))*256
-						</code></pre>
+						<h2 id="histo-map">Histogram Equalization</h2>
+						<img src='img/histo_map.png' id="histo-map-img">
+						<div id='histo-code'>
+	<pre><code class='python'>
+	bin_counts, bin_numbers = np.histogram(flat_image, bins=256, range=(0,256))
+	npx = len(flat_image)
+	histo_map = (np.cumsum(bin_counts)/float(npx))*256
+	</code></pre>
+						</div>
 					</section>
 					<section>
 						<div id="equalized-image">
@@ -633,6 +643,7 @@ COLOR!
 					<section>
 						Remember...
 						<ul>
+							<li><u>D</u>oing <u>S</u>tuff to <u>P</u>oints</li>
 							<li>Signals are composed of sine waves</li>
 							<li>Adequate sampling rate is important</li>
 							<li>Understand the underlying process</li>
