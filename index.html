@@ -225,23 +225,23 @@
 					<section>
 						<h2 id='fft-head'>Fourier Transform converts time series data into frequency information</h2>
 						<div id='fft-image'>
-						<img src='img/twotone_fft_zoom.png' id='fft-zoom'>
+							<img src='img/twotone_fft_zoom.png' id='fft-zoom'>
 						</div>
 <div id='fft-code'>
 <pre><code class='python'>
-	import numpy as np
-	import matplotlib.pyplot as plt
+  import numpy as np
+  import matplotlib.pyplot as plt
 
-	fs = 44100
-	step_size = 1./44100
-	t = np.arange(0.0, 1.0, step_size)
-	twotone = np.sin(t*750*2*np.pi) + \
-			   np.sin(t*1500*2*np.pi)
+  fs = 44100
+  step_size = 1./44100
+  t = np.arange(0.0, 1.0, step_size)
+  twotone = np.sin(t*750*2*np.pi) + \
+  		   np.sin(t*1500*2*np.pi)
 
-	spectrum = np.fft.rfft(twotone)
-	freqs = np.fft.rfftfreq(len(twotone), 1./fs)
+  spectrum = np.fft.rfft(twotone)
+  freqs = np.fft.rfftfreq(len(twotone), 1./fs)
 
-	plt.plot(freqs, abs(spectrum))
+  plt.plot(freqs, abs(spectrum))
 
 </code></pre>
 </div>
@@ -250,22 +250,22 @@
 						<h2>Running the FFT on time chunks gives a spectrogram</h2>
 <div id='fft-code'>
 <pre><code class='python'>
-	import numpy as np
-	import matplotlib.pyplot as plt
+  import numpy as np
+  import matplotlib.pyplot as plt
 
-	fs = 44100
-	step_size = 1./44100
-	t = np.arange(0.0, 1.0, step_size)
-	twotone = np.sin(t*750*2*np.pi) + \
-			   np.sin(t*1500*2*np.pi)
+  fs = 44100
+  step_size = 1./44100
+  t = np.arange(0.0, 1.0, step_size)
+  twotone = np.sin(t*750*2*np.pi) + \
+  		   np.sin(t*1500*2*np.pi)
 
-	plt.specgram(twotone, Fs=fs, NFFT=512,
-				 noverlap=0, cmap='gnuplot');
+  plt.specgram(twotone, Fs=fs, NFFT=512,
+  			 noverlap=0, cmap='gnuplot')
 
 </code></pre>
 </div>
-						<div id='fft-image'>
-						<img src='img/twotone_spectrogram.png'>
+						<div >
+							<img src='img/twotone_spectrogram.png' id='spec-image-2tone'>
 						</div>
 					</section>
 					<section>
@@ -315,19 +315,19 @@
 						<h2>Inadequate sampling rate can cause aliasing</h2>
 <div id='aliasing-code'>
 <pre><code class='python'>
-	fs = 500
-	step_size = 1./fs
-	t = np.arange(0.0, 1.0, step_size)
-	freq0 = 120
-	freq1 = 110
-	twotone = np.sin(t*freq0*2*np.pi) + \
-			  np.sin(t*freq1*2*np.pi)
+  fs = 500
+  step_size = 1./fs
+  t = np.arange(0.0, 1.0, step_size)
+  freq0 = 120
+  freq1 = 110
+  twotone = np.sin(t*freq0*2*np.pi) + \
+  		  np.sin(t*freq1*2*np.pi)
 
-	spectrum = np.fft.rfft(twotone)
-	freqs = np.fft.rfftfreq(len(twotone), 1./fs)
+  spectrum = np.fft.rfft(twotone)
+  freqs = np.fft.rfftfreq(len(twotone), 1./fs)
 
-	ax, fig = plot(freqs, abs(spectrum), '
-				  Frequency (Hz)', 'Amplitude')
+  ax, fig = plot(freqs, abs(spectrum), '
+  			  Frequency (Hz)', 'Amplitude')
 
 </code></pre>
 </div>
@@ -337,20 +337,20 @@
 				<section>
 						<h2>Inadequate sampling rate can cause aliasing</h2>
 <div id='aliasing-code'>
-<pre><code class='python'>
-	fs = 50
-	step_size = 1./fs
-	t = np.arange(0.0, 1.0, step_size)
-	freq0 = 120
-	freq1 = 110
-	twotone = np.sin(t*freq0*2*np.pi) + \
-			  np.sin(t*freq1*2*np.pi)
+  <pre><code class='python'>
+  fs = 50
+  step_size = 1./fs
+  t = np.arange(0.0, 1.0, step_size)
+  freq0 = 120
+  freq1 = 110
+  twotone = np.sin(t*freq0*2*np.pi) + \
+  		  np.sin(t*freq1*2*np.pi)
 
-	spectrum = np.fft.rfft(twotone)
-	freqs = np.fft.rfftfreq(len(twotone), 1./fs)
+  spectrum = np.fft.rfft(twotone)
+  freqs = np.fft.rfftfreq(len(twotone), 1./fs)
 
-	ax, fig = plot(freqs, abs(spectrum), '
-				  Frequency (Hz)', 'Amplitude')
+  ax, fig = plot(freqs, abs(spectrum), '
+  			  Frequency (Hz)', 'Amplitude')
 
 </code></pre>
 </div>
@@ -387,8 +387,8 @@
 
                     <section>
 						<h2>Brightness shifts pixel values up or down</h2>
-
-<pre><code class='python'>
+<div id='brightness-code'>
+<pre><code class='python' data-noescape>
     image = plt.imread('img/ptown.jpg')
     imshape = image.shape
     flat_image = image.flatten()
@@ -404,11 +404,14 @@
     # decrease brightness
     darker = np.arange(256)
     darker -= 100
-    darker[darker<0] = 0
+    darker[darker < 0] = 0
 
     bright_adjusted = darker[flat_image]
     bright_adjusted = bright_adjusted.reshape(*imshape)
+
 </code></pre>
+</div>
+
                     </section>
 
 					<section>
@@ -418,6 +421,7 @@
 
                     <section>
 						<h2>Contrast stretches pixel values</h2>
+<div id='contrast-code'>
 <pre><code class='python'>
     def adjust_contrast(image, factor, brightness):
         contrast_map = np.arange(256)
@@ -433,6 +437,7 @@
     adjusted_image, contrast_map = adjust_contrast(flat_image, factor=1./3, brightness=128)
 
 </code></pre>
+</div>
                     </section>
 					<section>
 						<h2>Histogram equalization stretches & shifts pixel values according to concentration</h2>
@@ -596,14 +601,18 @@ COLOR!
 
 					<section>
 						<h2>Quantization</h2>
-						<img src="img/dct_grid.png">
+						<div>
+						<img src="img/dct_grid.png" id="quantization-img">
+						</div>
 						<aside class="notes">
 							Divide each component in the frequency domain by a constant for that component. Round to the nearest integer
 						</aside>
 					</section>
 
 					<section>
-						<img src="img/dct_overview.png">
+						<div id="dct-overview">
+							<img src="img/dct_overview.png">
+						</div>
 					</section>
 
 					<section>
