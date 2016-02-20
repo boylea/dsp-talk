@@ -202,7 +202,7 @@
 	t = np.arange(0.0, 1.0, 0.01)
 	signal = np.zeros_like(t)
 	for i in range(2, 100, 2):
-	    signal = np.sin(i*2*t*np.pi)/i
+	    signal = np.sin(i * 2 * t * np.pi) / i
 
 </code></pre>
 </div>
@@ -240,8 +240,8 @@
   fs = 44100
   step_size = 1./44100
   t = np.arange(0.0, 1.0, step_size)
-  twotone = np.sin(t*750*2*np.pi) + \
-  		   np.sin(t*1500*2*np.pi)
+  twotone = np.sin(t * 750 * 2 * np.pi) + \
+  		   np.sin(t * 1500 * 2 * np.pi)
 
   spectrum = np.fft.rfft(twotone)
   freqs = np.fft.rfftfreq(len(twotone), 1./fs)
@@ -261,8 +261,8 @@
   fs = 44100
   step_size = 1./44100
   t = np.arange(0.0, 1.0, step_size)
-  twotone = np.sin(t*750*2*np.pi) + \
-  		   np.sin(t*1500*2*np.pi)
+  twotone = np.sin(t * 750 * 2 * np.pi) + \
+  		   np.sin(t * 1500 * 2 * np.pi)
 
   plt.specgram(twotone, Fs=fs, NFFT=512,
   			 noverlap=0, cmap='gnuplot')
@@ -327,8 +327,8 @@
   t = np.arange(0.0, 1.0, step_size)
   freq0 = 120
   freq1 = 110
-  twotone = np.sin(t*freq0*2*np.pi) + \
-  		  np.sin(t*freq1*2*np.pi)
+  twotone = np.sin(t * freq0 * 2 * np.pi) + \
+  		  np.sin(t * freq1 * 2 * np.pi)
 
   spectrum = np.fft.rfft(twotone)
   freqs = np.fft.rfftfreq(len(twotone), 1./fs)
@@ -350,8 +350,8 @@
   t = np.arange(0.0, 1.0, step_size)
   freq0 = 120
   freq1 = 110
-  twotone = np.sin(t*freq0*2*np.pi) + \
-  		  np.sin(t*freq1*2*np.pi)
+  twotone = np.sin(t * freq0 * 2 * np.pi) + \
+  		  np.sin(t * freq1 * 2 * np.pi)
 
   spectrum = np.fft.rfft(twotone)
   freqs = np.fft.rfftfreq(len(twotone), 1./fs)
